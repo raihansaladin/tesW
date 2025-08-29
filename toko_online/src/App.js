@@ -4,7 +4,7 @@ function App() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch('/')
+    fetch('/hello')
     .then(response => response.text())
     .then(data => setMessage(data))
     .catch(err => console.error('Error  fetching: ', err));
