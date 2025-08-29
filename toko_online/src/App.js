@@ -5,12 +5,20 @@ function App() {
   const [nama, setNama] = useState('');
   const [email, setEmail] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     fetch('/hello')
       .then(response => response.text())
       .then(data => setMessage(data))
       .catch(err => console.error('Error fetching:', err));
+  }, []);
+
+  useEffect(() => {
+    fetch('/users')
+      .then(res => res.json())
+      .then(data => setUsers(data))
+      .catch(err => console.error('Error fetching users:', err));
   }, []);
 
   const handleSubmit = (e) => {
@@ -27,8 +35,11 @@ function App() {
       })
       .then(data => {
         setResponseMessage(`Sukses: ${data.message}, id: ${data.id}`);
-        setNama('');     
+        setNama('');
         setEmail('');
+        return fetch('/users')
+          .then(res => res.json())
+          .then(data => setUsers(data));
       })
       .catch(err => setResponseMessage(`Error: ${err.message}`));
   };
@@ -36,6 +47,9 @@ function App() {
   return (
     <div>
       <h1>Response dari backend</h1>
+      <p>{message}</p>
+
+      <h2>Tambah User</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -55,7 +69,13 @@ function App() {
       </form>
 
       <p>{responseMessage}</p>
-      <p>{message}</p>
+
+      <h2>Daftar User</h2>
+      <ul>
+        {users.map(user => (
+          <li key={user.id}>{user.nama} - {user.email}</li>
+        ))}
+      </ul>
     </div>
   );
 }
