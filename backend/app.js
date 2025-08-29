@@ -9,8 +9,9 @@ app.get('/hello', (req, res) => {
    res.send('Hello World!!');
 })
 
+//CREATE user
 app.post('/users', (req, res) => {
-  console.log("Request body:", req.body); 
+  console.log("Request body:", req.body); //debug
   const { nama, email } = req.body;
 
   const sql = "INSERT INTO users (nama, email) VALUES (?, ?)";
@@ -23,9 +24,16 @@ app.post('/users', (req, res) => {
   });
 });
 
-
-app.get('/about', (req, res) => {
-  res.json({ message: "Ini endpoint About" });
+//READ
+app.get('/users', (req, res) => {
+   const sql = "SELECT * FROM users";
+   db.query(sql, (err, result) => {
+      if(err){
+         console.error("Read error:", err);
+         return res.status(500).json({error: "Database error"});
+      }
+      res.json(result);
+   });
 });
 
 app.listen(port, () => {
