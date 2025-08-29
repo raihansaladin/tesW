@@ -10,7 +10,7 @@ app.get('/hello', (req, res) => {
 })
 
 app.post('/users', (req, res) => {
-  console.log("Request body:", req.body); //debug
+  console.log("Request body:", req.body); 
   const { nama, email } = req.body;
 
   const sql = "INSERT INTO users (nama, email) VALUES (?, ?)";
