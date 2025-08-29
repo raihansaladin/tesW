@@ -1,13 +1,19 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 5000;
 
+// Middleware to parse JSON bodies
+app.use(express.json());
+app.use(cors()); // Enable CORS for React frontend
+
 app.get('/hello', (req, res) => {
-   res.send('Hello World!!');
+  res.send('Hello World!!');
 })
 
 app.post('/data', (req, res) => {
-  res.send('Data berhasil diterima!');
+  console.log('Received data:', req.body);
+  res.send(`Data received: ${req.body.data || 'No data provided'}`);
 });
 
 app.get('/about', (req, res) => {
@@ -15,13 +21,5 @@ app.get('/about', (req, res) => {
 });
 
 app.listen(port, () => {
-   console.log(`Example App Listen to ${port}`);
-})
-
-//        ../node_modules/long/ .
-//        ../node_modules/lru-cache/.
-//        ../node_modules/lru.min/.
-//        ../node_modules/mysql2/.
-//        ../node_modules/named-placeholders/.
-//        ../node_modules/seq-queue/.
-//        ../node_modules/sqlstring/.
+  console.log(`Server running on port ${port}`);
+});
