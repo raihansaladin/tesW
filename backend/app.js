@@ -31,11 +31,3 @@ app.get('/about', (req, res) => {
 app.listen(port, () => {
    console.log(`Example App Listen to ${port}`);
 })
-
-//        ../node_modules/long/ .
-//        ../node_modules/lru-cache/.
-//        ../node_modules/lru.min/.
-//        ../node_modules/mysql2/.
-//        ../node_modules/named-placeholders/.
-//        ../node_modules/seq-queue/.
-//        ../node_modules/sqlstring/.
